@@ -1,6 +1,6 @@
 {
     "name": "xypp/flarum-fingerprint-recorder",
-    "description": "Record user's browser fingerprint and ip address pair to detect multiple account",
+    "description": "Record user browser fingerprint and ip address pair to detect multiple account",
     "keywords": [
         "flarum"
     ],
