@@ -1,0 +1,38 @@
+.fingerprint-line {
+    display: grid;
+
+    .fingerprint-line-user {
+        .Avatar {
+            --size: 20px;
+        }
+
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    .fingerprint-line-time-create {
+        grid-row: 1;
+        grid-column: 2;
+    }
+
+    .fingerprint-line-time-update {
+        grid-row: 1;
+        grid-column: 3;
+    }
+
+    .fingerprint-line-finger{
+        grid-row: 2;
+        grid-column: 1;
+    }
+    .fingerprint-line-ip {
+        grid-row: 2;
+        grid-column: 2/3;
+    }
+    
+    .fingerprint-line-ua {
+        grid-column-start: 1;
+        grid-row: 3;
+        grid-column-end: 3;
+        display: grid;
+    }
+}

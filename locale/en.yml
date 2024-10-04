@@ -1,0 +1,13 @@
+xypp-fingerprint-recorder:
+  admin:
+    max_count: Max fingerprints count allowed in 24 hours
+    use_proxy: Use proxy
+    view: View fingerprints
+  forum:
+    show: Show Fingerprints ({cnt})
+    suspicious: Suspicious fingerprints ({cnt})
+    finger_title: Fingerprint
+    suspicious_title: Suspicious fingerprints
+  api:
+    no_fingerprint: No fingerprint uploaded with api.
+    too_many_fingerprints: Too many fingerprints uploaded with api.

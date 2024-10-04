@@ -1,0 +1,55 @@
+{
+    "name": "xypp/flarum-fingerprint-recorder",
+    "description": "Record user's browser fingerprint and ip address pair to detect multiple account",
+    "keywords": [
+        "flarum"
+    ],
+    "type": "flarum-extension",
+    "license": "GPL-3.0",
+    "require": {
+        "flarum/core": "^1.2.0"
+    },
+    "authors": [
+        {
+            "name": "小鱼飘飘",
+            "email": "z@xypp.cc",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Xypp\\FingerprintRecorder\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Fingerprint Recorder",
+            "category": "features",
+            "icon": {
+                "name": "fas fa-fingerprint",
+                "color": "#fff",
+                "backgroundColor": "#e91e63"
+            }
+        },
+        "flarum-cli": {
+            "modules": {
+                "admin": true,
+                "forum": true,
+                "js": true,
+                "jsCommon": true,
+                "css": true,
+                "locale": true,
+                "gitConf": true,
+                "githubActions": true,
+                "prettier": true,
+                "typescript": true,
+                "bundlewatch": false,
+                "backendTesting": true,
+                "editorConfig": true,
+                "styleci": true
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
