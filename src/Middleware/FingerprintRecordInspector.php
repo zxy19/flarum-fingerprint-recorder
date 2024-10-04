@@ -23,6 +23,9 @@ class FingerprintRecordInspector implements MiddlewareInterface
     }
     function process(ServerRequestInterface $request, RequestHandlerInterface $handler): \Psr\Http\Message\ResponseInterface
     {
+        $user = RequestUtil::getActor($request);
+        if ($user->isGuest())
+            return $handler->handle($request);
 
         $finger = $request->getHeaderLine('X-FRONTEND-FINGER');
         if (!$finger) {
@@ -33,7 +36,6 @@ class FingerprintRecordInspector implements MiddlewareInterface
 
         $response = $handler->handle($request);
         if ($finger) {
-            $user = RequestUtil::getActor($request);
             $ip = $this->IP($request);
             $userAgentTxt = $request->getHeaderLine("User-Agent");
             $userAgent = md5($userAgentTxt);
