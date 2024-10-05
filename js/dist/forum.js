@@ -705,7 +705,7 @@ var fingerprintModal = /*#__PURE__*/function (_Modal) {
     }), flarum_common_helpers_humanTime__WEBPACK_IMPORTED_MODULE_7___default()(item.updatedAt())), m("div", {
       className: "fingerprint-line-count"
     }, m("i", {
-      "class": "fas fa-user-times"
+      "class": "fas fa-plus"
     }), item.count()), m("div", {
       className: "fingerprint-line-ip"
     }, m("i", {

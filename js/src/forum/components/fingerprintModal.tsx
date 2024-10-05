@@ -51,7 +51,7 @@ export default class fingerprintModal extends Modal<{
             <div className='fingerprint-line-time-update'><i class="fas fa-clock"></i>{humanTime(item.updatedAt())}</div>
 
             <div className='fingerprint-line-count'>
-                <i class="fas fa-user-times"></i>
+                <i class="fas fa-plus"></i>
                 {item.count()}
             </div>
             <div className='fingerprint-line-ip'>
