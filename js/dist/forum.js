@@ -703,12 +703,22 @@ var fingerprintModal = /*#__PURE__*/function (_Modal) {
     }, m("i", {
       "class": "fas fa-clock"
     }), flarum_common_helpers_humanTime__WEBPACK_IMPORTED_MODULE_7___default()(item.updatedAt())), m("div", {
+      className: "fingerprint-line-count"
+    }, m("i", {
+      "class": "fas fa-user-times"
+    }), item.count()), m("div", {
       className: "fingerprint-line-ip"
-    }, item.ip()), m("div", {
+    }, m("i", {
+      "class": "fas fa-network-wired"
+    }), item.ip()), m("div", {
       className: "fingerprint-line-finger"
-    }, item.finger()), m("div", {
+    }, m("i", {
+      "class": "fas fa-fingerprint"
+    }), item.finger()), m("div", {
       className: "fingerprint-line-ua"
-    }, item.userAgent()));
+    }, m("i", {
+      "class": "fab fa-internet-explorer"
+    }), item.userAgent()));
   };
   return fingerprintModal;
 }((flarum_common_components_Modal__WEBPACK_IMPORTED_MODULE_2___default()));

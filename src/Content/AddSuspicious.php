@@ -12,9 +12,8 @@ class AddSuspicious
         if ($serializer->getActor()->hasPermission("xypp-fingerprint-recorder.view")) {
             $finger = FingerprintRecord::where("user_id", $user->id)->first();
             if ($finger) {
-                $query = FingerprintRecord::where("user_id", "!=", $user->id)->where("all", $finger->all);
-                $query->selectRaw("sum(count) as count");
-                $attributes["fingerprint_suspicious"] = $query->first()->count;
+                $count = FingerprintRecord::where("user_id", "!=", $user->id)->where("all", $finger->all)->count();
+                $attributes["fingerprint_suspicious"] = $count;
                 $attributes["fingerprint_count"] = FingerprintRecord::where("user_id", $user->id)->count();
             }
         }

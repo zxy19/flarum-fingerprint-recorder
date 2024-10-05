@@ -50,9 +50,22 @@ export default class fingerprintModal extends Modal<{
             <div className='fingerprint-line-time-create'><i class="fas fa-clock"></i>{humanTime(item.createdAt())}</div>
             <div className='fingerprint-line-time-update'><i class="fas fa-clock"></i>{humanTime(item.updatedAt())}</div>
 
-            <div className='fingerprint-line-ip'>{item.ip()}</div>
-            <div className='fingerprint-line-finger'>{item.finger()}</div>
-            <div className='fingerprint-line-ua'>{item.userAgent()}</div>
+            <div className='fingerprint-line-count'>
+                <i class="fas fa-user-times"></i>
+                {item.count()}
+            </div>
+            <div className='fingerprint-line-ip'>
+                <i class="fas fa-network-wired"></i>
+                {item.ip()}
+            </div>
+            <div className='fingerprint-line-finger'>
+                <i class="fas fa-fingerprint"></i>
+                {item.finger()}
+            </div>
+            <div className='fingerprint-line-ua'>
+                <i class="fab fa-internet-explorer"></i>
+                {item.userAgent()}
+            </div>
         </div>;
     }
 }
