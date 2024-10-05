@@ -5,7 +5,9 @@ xypp-fingerprint-recorder:
     view: View fingerprints
   forum:
     show: Show Fingerprints ({cnt})
+    show_short: ({cnt})
     suspicious: Suspicious fingerprints ({cnt})
+    suspicious_short: ({cnt})
     finger_title: Fingerprint
     suspicious_title: Suspicious fingerprints
   api:

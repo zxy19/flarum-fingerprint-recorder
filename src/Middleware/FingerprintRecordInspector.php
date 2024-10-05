@@ -43,10 +43,9 @@ class FingerprintRecordInspector implements MiddlewareInterface
             $model = FingerprintRecord::where("all", $all)->where("user_id", $user->id)->first();
             if (!$model) {
                 if (
-                    FingerprintRecord::where("user_id", $user->id)->whereBetween("created_at", [
-                        Carbon::now()->subHours(24),
-                        Carbon::now()
-                    ])->count() > (int) ($this->settings->get("xypp-fingerprint-recorder.max_count") ?? 20)
+                    FingerprintRecord::where("user_id", $user->id)
+                        ->where("created_at", ">", Carbon::now()->subHours(24))
+                        ->count() > (int) ($this->settings->get("xypp-fingerprint-recorder.max_count") ?? 20)
                 ) {
                     if (str_starts_with($request->getUri()->getPath(), "/api/")) {
                         throw new ValidationException(["msg" => $this->translator->trans("xypp-fingerprint-recorder.api.too_many_fingerprints")]);

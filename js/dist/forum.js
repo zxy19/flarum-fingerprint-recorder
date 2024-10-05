@@ -752,6 +752,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var flarum_common_extend__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(flarum_common_extend__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var _components_fingerprintModal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/fingerprintModal */ "./src/forum/components/fingerprintModal.tsx");
 /* harmony import */ var _common_models_FingerprintRecord__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../common/models/FingerprintRecord */ "./src/common/models/FingerprintRecord.ts");
+/* harmony import */ var flarum_forum_components_CommentPost__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! flarum/forum/components/CommentPost */ "flarum/forum/components/CommentPost");
+/* harmony import */ var flarum_forum_components_CommentPost__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(flarum_forum_components_CommentPost__WEBPACK_IMPORTED_MODULE_11__);
+
 
 
 
@@ -789,7 +792,10 @@ function getSuspiciousForUser(id) {
     }, _callee);
   }));
 }
-function addItem(items, userId) {
+function addItem(items, userId, priority, _short) {
+  if (_short === void 0) {
+    _short = false;
+  }
   if (userId && flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().forum.attribute('xypp-fingerprint-recorder.view')) {
     var user = flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().store.getById('users', userId + "");
     items.add('fingerprint-recorder-fingerprint', flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_4___default().component({
@@ -801,9 +807,9 @@ function addItem(items, userId) {
           title: flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('xypp-fingerprint-recorder.forum.finger_title')
         });
       }
-    }, flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('xypp-fingerprint-recorder.forum.show', {
+    }, flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('xypp-fingerprint-recorder.forum.show' + (_short ? '_short' : ''), {
       cnt: user && user.attribute('fingerprint_count') || 0
-    })));
+    })), priority);
     items.add('fingerprint-recorder-suspicious', flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_4___default().component({
       icon: 'fas fa-exclamation-triangle',
       className: 'Button Button--link',
@@ -813,9 +819,9 @@ function addItem(items, userId) {
           title: flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('xypp-fingerprint-recorder.forum.suspicious_title')
         });
       }
-    }, flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('xypp-fingerprint-recorder.forum.suspicious', {
+    }, flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('xypp-fingerprint-recorder.forum.suspicious' + (_short ? '_short' : ''), {
       cnt: user && user.attribute('fingerprint_suspicious') || 0
-    })));
+    })), priority);
   }
 }
 flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().initializers.add('xypp/flarum-fingerprint-recorder', function () {
@@ -834,6 +840,12 @@ flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().initializers.add('xypp/f
     if (user) {
       addItem(items, user.id());
     }
+  });
+  (0,flarum_common_extend__WEBPACK_IMPORTED_MODULE_8__.extend)((flarum_forum_components_CommentPost__WEBPACK_IMPORTED_MODULE_11___default().prototype), 'actionItems', function (items) {
+    var post = this.attrs.post;
+    var user = post.user();
+    var userId = user && user.id();
+    addItem(items, userId, 10000000, true);
   });
 });
 
@@ -968,6 +980,17 @@ module.exports = flarum.core.compat['common/helpers/username'];
 
 "use strict";
 module.exports = flarum.core.compat['forum/app'];
+
+/***/ }),
+
+/***/ "flarum/forum/components/CommentPost":
+/*!*********************************************************************!*\
+  !*** external "flarum.core.compat['forum/components/CommentPost']" ***!
+  \*********************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = flarum.core.compat['forum/components/CommentPost'];
 
 /***/ }),
 

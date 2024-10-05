@@ -10,6 +10,7 @@ import UserControls from 'flarum/forum/utils/UserControls';
 import { extend } from 'flarum/common/extend';
 import fingerprintModal from './components/fingerprintModal';
 import FingerprintRecord from '../common/models/FingerprintRecord';
+import CommentPost from 'flarum/forum/components/CommentPost';
 import User from 'flarum/common/models/User';
 function getFingerForUser(id: string) {
   return () => {
@@ -24,7 +25,7 @@ function getSuspiciousForUser(id: string) {
     }));
   }
 }
-function addItem(items: ItemList<any>, userId: number | string | false | null | undefined) {
+function addItem(items: ItemList<any>, userId: number | string | false | null | undefined, priority?: number, short: boolean = false) {
   if (userId && app.forum.attribute('xypp-fingerprint-recorder.view')) {
     const user = app.store.getById<User>('users', userId + "");
     items.add('fingerprint-recorder-fingerprint', Button.component({
@@ -37,7 +38,11 @@ function addItem(items: ItemList<any>, userId: number | string | false | null | 
         })
       }
     },
-      app.translator.trans('xypp-fingerprint-recorder.forum.show', { cnt: (user && user.attribute('fingerprint_count')) || 0 })))
+      app.translator.trans('xypp-fingerprint-recorder.forum.show' + (short ? '_short' : ''), {
+        cnt: (user && user.attribute('fingerprint_count')) || 0
+      })),
+      priority
+    )
     items.add('fingerprint-recorder-suspicious', Button.component({
       icon: 'fas fa-exclamation-triangle',
       className: 'Button Button--link',
@@ -48,7 +53,11 @@ function addItem(items: ItemList<any>, userId: number | string | false | null | 
         })
       }
     },
-      app.translator.trans('xypp-fingerprint-recorder.forum.suspicious', { cnt: (user && user.attribute('fingerprint_suspicious')) || 0 })))
+      app.translator.trans('xypp-fingerprint-recorder.forum.suspicious' + (short ? '_short' : ''), {
+        cnt: (user && user.attribute('fingerprint_suspicious')) || 0
+      })),
+      priority
+    )
   }
 }
 
@@ -70,4 +79,11 @@ app.initializers.add('xypp/flarum-fingerprint-recorder', () => {
       addItem(items, user.id());
     }
   });
+  extend(CommentPost.prototype, 'actionItems', function (this: CommentPost, items) {
+    const post = this.attrs.post;
+    const user = post.user();
+    const userId = user && user.id();
+    addItem(items, userId, 10000000, true);
+  }
+  )
 });
