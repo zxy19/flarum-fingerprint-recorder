@@ -14,13 +14,14 @@ function _trans(key: string, params: any) {
     return app.translator.trans(`xypp-fingerprint-recorder.forum.${key}`, params);
 }
 export default class fingerprintModal extends Modal<{
-    getData: () => Promise<FingerprintRecord[]>
+    getData: () => Promise<FingerprintRecord[]>,
+    title: string
 } & IInternalModalAttrs> {
     loading: boolean = true;
     data: FingerprintRecord[] = [];
     className(): string { return 'Modal Modal--large'; }
     title() {
-        return app.translator.trans('modal.title');
+        return this.attrs.title;
     }
     oncreate(vnode: any): void {
         super.oncreate(vnode);

@@ -1,0 +1,13 @@
+xypp-fingerprint-recorder:
+  admin:
+    max_count: 24小时内允许记录的最大指纹数量
+    use_proxy: 使用代理
+    view: 查看指纹
+  forum:
+    show: 查看指纹 ({cnt})
+    suspicious: 可疑的指纹 ({cnt})
+    finger_title: 指纹
+    suspicious_title: 可疑指纹
+  api:
+    no_fingerprint: Api请求没有上传指纹.
+    too_many_fingerprints: 上传了太多的指纹数据.

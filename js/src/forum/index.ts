@@ -6,7 +6,7 @@ import DiscussionControls from 'flarum/forum/utils/DiscussionControls';
 import ItemList from 'flarum/common/utils/ItemList';
 import Composer from 'flarum/forum/components/Composer';
 import LinkButton from 'flarum/common/components/LinkButton';
-import UserPage from 'flarum/forum/components/UserPage';
+import UserControls from 'flarum/forum/utils/UserControls';
 import { extend } from 'flarum/common/extend';
 import fingerprintModal from './components/fingerprintModal';
 import FingerprintRecord from '../common/models/FingerprintRecord';
@@ -17,11 +17,11 @@ function getFingerForUser(id: string) {
   }
 }
 function getSuspiciousForUser(id: string) {
-  return () => {
-    return app.request<FingerprintRecord[]>({
+  return async () => {
+    return app.store.pushPayload<FingerprintRecord[]>(await app.request<any>({
       method: 'GET',
       url: app.forum.attribute('apiUrl') + `/fingerprint-records/${id}/suspicious`
-    });
+    }));
   }
 }
 function addItem(items: ItemList<any>, userId: number | string | false | null | undefined) {
@@ -65,9 +65,9 @@ app.initializers.add('xypp/flarum-fingerprint-recorder', () => {
     const userId = user && user.id();
     addItem(items, userId);
   });
-  extend(UserPage.prototype, 'navItems', function (this: UserPage, items) {
-    if (app.session.user) {
-      addItem(items, app.session.user.id());
+  extend(UserControls, 'moderationControls', (items, user) => {
+    if (user) {
+      addItem(items, user.id());
     }
   });
 });
