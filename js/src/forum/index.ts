@@ -22,7 +22,7 @@ function getSuspiciousForUser(id: string) {
   return async () => {
     return app.store.pushPayload<FingerprintRecord[]>(await app.request<any>({
       method: 'GET',
-      url: app.forum.attribute('apiUrl') + `/fingerprint-records-discussion/${id}/suspicious`
+      url: app.forum.attribute('apiUrl') + `/fingerprint-records/${id}/suspicious`
     }));
   }
 }
@@ -96,7 +96,7 @@ app.initializers.add('xypp/flarum-fingerprint-recorder', () => {
           getData: async () => {
             return app.store.pushPayload<FingerprintRecord[]>(await app.request<any>({
               method: 'GET',
-              url: app.forum.attribute('apiUrl') + `/fingerprint-records/${this.discussion?.id()}/suspicious`
+              url: app.forum.attribute('apiUrl') + `/fingerprint-records-discussion/${this.discussion?.id()}/suspicious`
             }));
           },
           title: app.translator.trans('xypp-fingerprint-recorder.forum.suspicious_title')

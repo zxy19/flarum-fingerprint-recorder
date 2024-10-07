@@ -785,7 +785,7 @@ function getSuspiciousForUser(id) {
           _context.next = 3;
           return flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().request({
             method: 'GET',
-            url: flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().forum.attribute('apiUrl') + ("/fingerprint-records-discussion/" + id + "/suspicious")
+            url: flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().forum.attribute('apiUrl') + ("/fingerprint-records/" + id + "/suspicious")
           });
         case 3:
           _context.t1 = _context.sent;
@@ -869,7 +869,7 @@ flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().initializers.add('xypp/f
                     _context2.next = 3;
                     return flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().request({
                       method: 'GET',
-                      url: flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().forum.attribute('apiUrl') + ("/fingerprint-records/" + ((_this$discussion = _this.discussion) == null ? void 0 : _this$discussion.id()) + "/suspicious")
+                      url: flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().forum.attribute('apiUrl') + ("/fingerprint-records-discussion/" + ((_this$discussion = _this.discussion) == null ? void 0 : _this$discussion.id()) + "/suspicious")
                     });
                   case 3:
                     _context2.t1 = _context2.sent;
