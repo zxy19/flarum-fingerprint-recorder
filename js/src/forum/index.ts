@@ -86,26 +86,26 @@ app.initializers.add('xypp/flarum-fingerprint-recorder', () => {
     const userId = user && user.id();
     addItem(items, userId, 10000000, true);
   });
-
-  extend(DiscussionPage.prototype, 'sidebarItems', function (this: DiscussionPage, items) {
-    items.add('fingerprint-recorder-suspicious', Button.component({
-      icon: 'fas fa-exclamation-triangle',
-      className: 'Button',
-      onclick: () => {
-        app.modal.show(fingerprintModal, {
-          getData: async () => {
-            return app.store.pushPayload<FingerprintRecord[]>(await app.request<any>({
-              method: 'GET',
-              url: app.forum.attribute('apiUrl') + `/fingerprint-records-discussion/${this.discussion?.id()}/suspicious`
-            }));
-          },
-          title: app.translator.trans('xypp-fingerprint-recorder.forum.suspicious_title')
-        })
-      }
-    },
-      app.translator.trans('xypp-fingerprint-recorder.forum.suspicious', {
-        cnt: (this.discussion && this.discussion.attribute('fingerprint_suspicious')) || 0
-      }))
-    )
-  });
+  if (app.forum.attribute('xypp-fingerprint-recorder.view'))
+    extend(DiscussionPage.prototype, 'sidebarItems', function (this: DiscussionPage, items) {
+      items.add('fingerprint-recorder-suspicious', Button.component({
+        icon: 'fas fa-exclamation-triangle',
+        className: 'Button',
+        onclick: () => {
+          app.modal.show(fingerprintModal, {
+            getData: async () => {
+              return app.store.pushPayload<FingerprintRecord[]>(await app.request<any>({
+                method: 'GET',
+                url: app.forum.attribute('apiUrl') + `/fingerprint-records-discussion/${this.discussion?.id()}/suspicious`
+              }));
+            },
+            title: app.translator.trans('xypp-fingerprint-recorder.forum.suspicious_title')
+          })
+        }
+      },
+        app.translator.trans('xypp-fingerprint-recorder.forum.suspicious', {
+          cnt: (this.discussion && this.discussion.attribute('fingerprint_suspicious')) || 0
+        }))
+      )
+    });
 });
