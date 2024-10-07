@@ -45,6 +45,13 @@ export default class fingerprintModal extends Modal<{
             <div className='fingerprint-line-user'>
                 {user && avatar(user, { "size": 24 })}
                 {user && <Link href={app.route('user', { username: user.slug() })}>{username(user)}</Link>}
+                {
+                    (user && user.attribute("suspendedUntil") && dayjs((user as any).suspendedUntil()).isAfter())
+                        ?
+                        <span className="fingerprint-tip-suspended">{app.translator.trans('xypp-fingerprint-recorder.forum.suspend')}</span>
+                        :
+                        ""
+                }
             </div>
 
             <div className='fingerprint-line-time-create'><i class="fas fa-clock"></i>{humanTime(item.createdAt())}</div>

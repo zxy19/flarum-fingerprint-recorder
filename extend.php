@@ -12,12 +12,15 @@
 namespace Xypp\FingerprintRecorder;
 
 use Flarum\Api\Serializer\BasicUserSerializer;
+use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Extend;
 use Flarum\Http\RequestUtil;
 use Xypp\FingerprintRecorder\Api\Controller\GetFingerprintList;
 use Xypp\FingerprintRecorder\Api\Controller\GetSuspiciousList;
+use Xypp\FingerprintRecorder\Api\Controller\GetSuspiciousListForDiscussion;
 use Xypp\FingerprintRecorder\Content\AddSuspicious;
+use Xypp\FingerprintRecorder\Content\AddSuspiciousDiscussion;
 
 return [
     (new Extend\Frontend('forum'))
@@ -29,11 +32,14 @@ return [
     new Extend\Locales(__DIR__ . '/locale'),
     (new Extend\ApiSerializer(BasicUserSerializer::class))
         ->attributes(AddSuspicious::class),
+    (new Extend\ApiSerializer(DiscussionSerializer::class))
+        ->attributes(AddSuspiciousDiscussion::class),
     (new Extend\Middleware("api"))
         ->add(Middleware\FingerprintRecordInspector::class),
     (new Extend\Routes('api'))
         ->get('/fingerprint-records/{id}/suspicious', 'fingerprint-recorder.suspicious', GetSuspiciousList::class)
-        ->get('/fingerprint-records/{id}', 'fingerprint-recorder.fingerprint', GetFingerprintList::class),
+        ->get('/fingerprint-records/{id}', 'fingerprint-recorder.fingerprint', GetFingerprintList::class)
+        ->get('/fingerprint-records-discussion/{id}/suspicious', 'fingerprint-recorder.discussion-suspicious', GetSuspiciousListForDiscussion::class),
     (new Extend\ApiSerializer(ForumSerializer::class))
         ->attribute('xypp-fingerprint-recorder.view', function (ForumSerializer $serializer) {
             return RequestUtil::getActor($serializer->getRequest())->hasPermission('xypp-fingerprint-recorder.view');

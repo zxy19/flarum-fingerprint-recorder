@@ -694,7 +694,9 @@ var fingerprintModal = /*#__PURE__*/function (_Modal) {
       href: flarum_forum_app__WEBPACK_IMPORTED_MODULE_1___default().route('user', {
         username: user.slug()
       })
-    }, flarum_common_helpers_username__WEBPACK_IMPORTED_MODULE_5___default()(user))), m("div", {
+    }, flarum_common_helpers_username__WEBPACK_IMPORTED_MODULE_5___default()(user)), user && user.attribute("suspendedUntil") && dayjs(user.suspendedUntil()).isAfter() ? m("span", {
+      className: "fingerprint-tip-suspended"
+    }, flarum_forum_app__WEBPACK_IMPORTED_MODULE_1___default().translator.trans('xypp-fingerprint-recorder.forum.suspend')) : ""), m("div", {
       className: "fingerprint-line-time-create"
     }, m("i", {
       "class": "fas fa-clock"
@@ -754,6 +756,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_models_FingerprintRecord__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../common/models/FingerprintRecord */ "./src/common/models/FingerprintRecord.ts");
 /* harmony import */ var flarum_forum_components_CommentPost__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! flarum/forum/components/CommentPost */ "flarum/forum/components/CommentPost");
 /* harmony import */ var flarum_forum_components_CommentPost__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(flarum_forum_components_CommentPost__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var flarum_forum_components_DiscussionPage__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! flarum/forum/components/DiscussionPage */ "flarum/forum/components/DiscussionPage");
+/* harmony import */ var flarum_forum_components_DiscussionPage__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(flarum_forum_components_DiscussionPage__WEBPACK_IMPORTED_MODULE_12__);
+
 
 
 
@@ -780,7 +785,7 @@ function getSuspiciousForUser(id) {
           _context.next = 3;
           return flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().request({
             method: 'GET',
-            url: flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().forum.attribute('apiUrl') + ("/fingerprint-records/" + id + "/suspicious")
+            url: flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().forum.attribute('apiUrl') + ("/fingerprint-records-discussion/" + id + "/suspicious")
           });
         case 3:
           _context.t1 = _context.sent;
@@ -846,6 +851,46 @@ flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().initializers.add('xypp/f
     var user = post.user();
     var userId = user && user.id();
     addItem(items, userId, 10000000, true);
+  });
+  (0,flarum_common_extend__WEBPACK_IMPORTED_MODULE_8__.extend)((flarum_forum_components_DiscussionPage__WEBPACK_IMPORTED_MODULE_12___default().prototype), 'sidebarItems', function (items) {
+    var _this = this;
+    items.add('fingerprint-recorder-suspicious', flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_4___default().component({
+      icon: 'fas fa-exclamation-triangle',
+      className: 'Button',
+      onclick: function onclick() {
+        flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().modal.show(_components_fingerprintModal__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          getData: function () {
+            var _getData = (0,_babel_runtime_helpers_esm_asyncToGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])(/*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().mark(function _callee2() {
+              var _this$discussion;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_1___default().wrap(function _callee2$(_context2) {
+                while (1) switch (_context2.prev = _context2.next) {
+                  case 0:
+                    _context2.t0 = (flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().store);
+                    _context2.next = 3;
+                    return flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().request({
+                      method: 'GET',
+                      url: flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().forum.attribute('apiUrl') + ("/fingerprint-records/" + ((_this$discussion = _this.discussion) == null ? void 0 : _this$discussion.id()) + "/suspicious")
+                    });
+                  case 3:
+                    _context2.t1 = _context2.sent;
+                    return _context2.abrupt("return", _context2.t0.pushPayload.call(_context2.t0, _context2.t1));
+                  case 5:
+                  case "end":
+                    return _context2.stop();
+                }
+              }, _callee2);
+            }));
+            function getData() {
+              return _getData.apply(this, arguments);
+            }
+            return getData;
+          }(),
+          title: flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('xypp-fingerprint-recorder.forum.suspicious_title')
+        });
+      }
+    }, flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('xypp-fingerprint-recorder.forum.suspicious', {
+      cnt: this.discussion && this.discussion.attribute('fingerprint_suspicious') || 0
+    })));
   });
 });
 
@@ -991,6 +1036,17 @@ module.exports = flarum.core.compat['forum/app'];
 
 "use strict";
 module.exports = flarum.core.compat['forum/components/CommentPost'];
+
+/***/ }),
+
+/***/ "flarum/forum/components/DiscussionPage":
+/*!************************************************************************!*\
+  !*** external "flarum.core.compat['forum/components/DiscussionPage']" ***!
+  \************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = flarum.core.compat['forum/components/DiscussionPage'];
 
 /***/ }),
 
