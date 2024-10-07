@@ -21,8 +21,8 @@ class GetSuspiciousListForDiscussion extends AbstractListController
 
         $id = Arr::get($request->getQueryParams(), "id");
         $discussion = Discussion::findOrFail($id);
-        $users = $discussion->participants;
-        $suspicious = FingerprintRecord::whereIn("user_id", $users->pluck("id"))
+        $users = $discussion->participants()->select("user_id")->get();
+        $suspicious = FingerprintRecord::whereIn("user_id", $users->pluck("user_id"))
             ->whereExists(function ($query) {
                 $query->from("fingerprint_record as fgr2")
                     ->where("fgr2.all", "fingerprint_record.all")
