@@ -852,9 +852,9 @@ flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().initializers.add('xypp/f
     var userId = user && user.id();
     addItem(items, userId, 10000000, true);
   });
-  if (flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().forum.attribute('xypp-fingerprint-recorder.view')) (0,flarum_common_extend__WEBPACK_IMPORTED_MODULE_8__.extend)((flarum_forum_components_DiscussionPage__WEBPACK_IMPORTED_MODULE_12___default().prototype), 'sidebarItems', function (items) {
+  (0,flarum_common_extend__WEBPACK_IMPORTED_MODULE_8__.extend)((flarum_forum_components_DiscussionPage__WEBPACK_IMPORTED_MODULE_12___default().prototype), 'sidebarItems', function (items) {
     var _this = this;
-    items.add('fingerprint-recorder-suspicious', flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_4___default().component({
+    if (flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().forum.attribute('xypp-fingerprint-recorder.view')) items.add('fingerprint-recorder-suspicious', flarum_common_components_Button__WEBPACK_IMPORTED_MODULE_4___default().component({
       icon: 'fas fa-exclamation-triangle',
       className: 'Button',
       onclick: function onclick() {

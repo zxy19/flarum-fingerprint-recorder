@@ -86,8 +86,8 @@ app.initializers.add('xypp/flarum-fingerprint-recorder', () => {
     const userId = user && user.id();
     addItem(items, userId, 10000000, true);
   });
-  if (app.forum.attribute('xypp-fingerprint-recorder.view'))
-    extend(DiscussionPage.prototype, 'sidebarItems', function (this: DiscussionPage, items) {
+  extend(DiscussionPage.prototype, 'sidebarItems', function (this: DiscussionPage, items) {
+    if (app.forum.attribute('xypp-fingerprint-recorder.view'))
       items.add('fingerprint-recorder-suspicious', Button.component({
         icon: 'fas fa-exclamation-triangle',
         className: 'Button',
@@ -107,5 +107,5 @@ app.initializers.add('xypp/flarum-fingerprint-recorder', () => {
           cnt: (this.discussion && this.discussion.attribute('fingerprint_suspicious')) || 0
         }))
       )
-    });
+  });
 });
