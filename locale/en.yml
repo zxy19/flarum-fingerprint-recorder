@@ -10,6 +10,7 @@ xypp-fingerprint-recorder:
     suspicious_short: ({cnt})
     finger_title: Fingerprint
     suspicious_title: Suspicious fingerprints
+    suspicious_discussion: Suspicious Users
     suspend: 【Suspend】
   api:
     no_fingerprint: No fingerprint uploaded with api.

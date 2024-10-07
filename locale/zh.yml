@@ -9,6 +9,7 @@ xypp-fingerprint-recorder:
     finger_title: 指纹
     suspicious_title: 可疑指纹
     suspend: 【封禁】
+    suspicious_discussion: 可疑用户
   api:
     no_fingerprint: Api请求没有上传指纹.
     too_many_fingerprints: 上传了太多的指纹数据.

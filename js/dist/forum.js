@@ -888,9 +888,7 @@ flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().initializers.add('xypp/f
           title: flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('xypp-fingerprint-recorder.forum.suspicious_title')
         });
       }
-    }, flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('xypp-fingerprint-recorder.forum.suspicious', {
-      cnt: this.discussion && this.discussion.attribute('fingerprint_suspicious') || 0
-    })));
+    }, flarum_forum_app__WEBPACK_IMPORTED_MODULE_2___default().translator.trans('xypp-fingerprint-recorder.forum.suspicious_discussion')));
   });
 });
 

@@ -32,8 +32,6 @@ return [
     new Extend\Locales(__DIR__ . '/locale'),
     (new Extend\ApiSerializer(BasicUserSerializer::class))
         ->attributes(AddSuspicious::class),
-    (new Extend\ApiSerializer(DiscussionSerializer::class))
-        ->attributes(AddSuspiciousDiscussion::class),
     (new Extend\Middleware("api"))
         ->add(Middleware\FingerprintRecordInspector::class),
     (new Extend\Routes('api'))

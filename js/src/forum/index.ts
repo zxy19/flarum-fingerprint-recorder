@@ -103,9 +103,7 @@ app.initializers.add('xypp/flarum-fingerprint-recorder', () => {
           })
         }
       },
-        app.translator.trans('xypp-fingerprint-recorder.forum.suspicious', {
-          cnt: (this.discussion && this.discussion.attribute('fingerprint_suspicious')) || 0
-        }))
+        app.translator.trans('xypp-fingerprint-recorder.forum.suspicious_discussion'))
       )
   });
 });
