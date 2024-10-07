@@ -5,6 +5,7 @@ use Flarum\Api\Controller\AbstractListController;
 use Flarum\Discussion\Discussion;
 use Flarum\Http\RequestUtil;
 use Flarum\User\User;
+use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -23,10 +24,12 @@ class GetSuspiciousListForDiscussion extends AbstractListController
         $discussion = Discussion::findOrFail($id);
         $users = $discussion->participants()->select("user_id")->get();
         $suspicious = FingerprintRecord::whereIn("user_id", $users->pluck("user_id"))
+
             ->whereExists(function ($query) {
+                $grammar = $query->getGrammar();
                 $query->from("fingerprint_record as fgr2")
-                    ->where("fgr2.all", "fingerprint_record.all")
-                    ->where("fgr2.user_id", "!=", "fingerprint_record.user_id");
+                    ->where("fgr2.all", $grammar->wrap("fingerprint_record.all"))
+                    ->where("fgr2.user_id", "!=", $grammar->wrap("fingerprint_record.user_id"));
             });
         return $suspicious->get();
     }
