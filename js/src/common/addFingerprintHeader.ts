@@ -3,9 +3,14 @@ import type ForumApplication from 'flarum/forum/ForumApplication';
 import type AdminApplication from 'flarum/admin/AdminApplication';
 import { ClientJS } from "clientjs";
 export function addFingerprintHeader() {
+    let fingerPrint = "";
     override(m, "request", (o, options) => {
         extend(options, 'config', (_: undefined, xhr: XMLHttpRequest) => {
-            xhr.setRequestHeader('X-FRONTEND-FINGER', new ClientJS().getFingerprint() + "");
+            if (!fingerPrint) {
+                fingerPrint = new ClientJS().getFingerprint() + "";
+                // console.log("Calculated fingerprint of" + fingerPrint);
+            }
+            xhr.setRequestHeader('X-FRONTEND-FINGER', fingerPrint);
         });
         return o(options);
     });
